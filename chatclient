@@ -13,3 +13,18 @@ if len(sys.argv)!=3:
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+Info = (sys.argv[1])
+a=Info.split(':')
+IP_addr=str(a[0])
+port=int(a[1])
+nick=str(sys.argv[2])
+
+
+server.connect((IP_addr, port))
+
+first_msg=server.recv(2048).decode('utf-8')
+
+print(first_msg)
+
+nick = 'NICK ' + nick
