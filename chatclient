@@ -28,3 +28,14 @@ first_msg=server.recv(2048).decode('utf-8')
 print(first_msg)
 
 nick = 'NICK ' + nick
+
+server.sendall(nick.encode('utf-8'))
+
+ok_msg=server.recv(2048).decode('utf-8')
+print(ok_msg)
+if ok_msg == "OK":
+    pass
+elif ok_msg == "ERR malformed nick name":
+    print('dont enter nick name with special characters,limit upto 12 characters')
+    print('disconnecting, try with valid nickname')
+    sys.exit()
