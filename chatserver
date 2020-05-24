@@ -86,3 +86,17 @@ def clientthread(conn,addr):
                             broadcasting(message_to_send,conn,nick1)
                     elif len(message1) > 255 :
                         conn.sendall('ERROR -> message length exceeding 256 characters'.encode('utf-8'))
+        
+
+        except KeyboardInterrupt:
+            conn.close()
+            break
+
+def broadcasting(message,connection,nick1):
+    for sockets in clients:
+        if sockets!= server:
+            try:
+                sockets.sendall(message.encode('utf-8'))
+            except KeyboardInterrupt:
+                    clients.remove(sockets)
+                    break 
