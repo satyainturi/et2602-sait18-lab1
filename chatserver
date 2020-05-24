@@ -47,3 +47,20 @@ def clientthread(conn,addr):
                 break
         except :
                 break
+
+
+    while True:
+        try:
+            if conn in clients:
+                message = conn.recv(2048).decode('utf-8')
+                message1=message.strip('MSG ')
+                
+            
+                if not message:
+                    conn.close()
+                    print(addr[0]+" has disconnected")
+                    clients.remove(conn)
+                    break 
+
+                elif 'MSG ' not in message:
+                    conn.sendall('ERROR malformed message'.encode('utf-8'))
